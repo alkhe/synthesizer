@@ -8,6 +8,10 @@ const log = x => {
 	process.stderr.write(`${ x }\n`)
 }
 
+const prelog = x => {
+	process.stderr.write(x)
+}
+
 const tasks = new Map
 
 global.__synthesizer__tasks__ = tasks
@@ -27,7 +31,7 @@ const run = (file, args = [], options = {}) => {
 }
 
 const ask = prompt => {
-	log(cyan(prompt))
+	if (prompt.length > 0) prelog(cyan(prompt))
 	return rl.prompt()
 }
 

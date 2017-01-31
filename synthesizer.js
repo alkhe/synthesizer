@@ -26,7 +26,7 @@ if (!exists(synfile)) {
 }
 
 require(synfile)
-msg('#syn', `using in ${ cyan(synfile) }`)
+msg('#syn', `using ${ cyan(synfile) }`)
 
 const requests = process.argv.slice(2)
 const tasks = __synthesizer__tasks__
