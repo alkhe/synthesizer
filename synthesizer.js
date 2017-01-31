@@ -16,17 +16,19 @@ const err = (tag, content) => {
 }
 
 const cwd = process.cwd()
-msg('#syn', `starting in ${ cyan(cwd) }`)
+msg('syn', `starting in ${ cyan(cwd) }`)
 
 const synfile = resolve(cwd, 'syn.js')
 
 if (!exists(synfile)) {
-	err('#syn', `syn.js not found`)
+	err('syn', `syn.js not found`)
 	process.exit()
 }
 
+// const __synthesizer__run__ = 
+
 require(synfile)
-msg('#syn', `using ${ cyan(synfile) }`)
+msg('syn', `using ${ cyan(synfile) }`)
 
 const requests = process.argv.slice(2)
 const tasks = __synthesizer__tasks__
@@ -56,14 +58,14 @@ const run_task = t => {
 	msg(`:${ t }`, 'done')
 }
 
+tasks.set('#', requests)
+
 try {
-	requests.forEach(run_task)
-	msg('#syn', `ok`)
+	run_task('#')
 } catch (e) {
+	log(magenta(e.stack))
 	for (let i = task_stack.length - 1; i >= 0; i--) {
 		err(`:${ task_stack[i] }`, `fail`)
 	}
-	log(magenta(e.stack))
-	err('#syn', `bad`)
 }
 
