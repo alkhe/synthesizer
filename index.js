@@ -5,7 +5,7 @@ const rl = require('readline-sync')
 rl.setDefaultOptions({ prompt: '' })
 
 const log = x => {
-	process.stdout.write(`${ x }\n`)
+	process.stderr.write(`${ x }\n`)
 }
 
 const tasks = new Map

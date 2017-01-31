@@ -5,7 +5,7 @@ const { resolve } = require('path')
 const { existsSync: exists } = require('fs')
 
 const log = x => {
-	process.stdout.write(`${ x }\n`)
+	process.stderr.write(`${ x }\n`)
 }
 
 const msg = (tag, content) => {
