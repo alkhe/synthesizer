@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "colors": "^1.1.2",
-    "readline-sync": "^1.4.5"
+    "readline-sync": "^1.4.5",
+    "tabtab": "^2.2.2"
   }
 }

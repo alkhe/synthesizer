@@ -1,5 +1,14 @@
 #!/usr/bin/env node
 
+const tab = require('tabtab')({
+	name: 'syn'
+})
+
+tab.on('program', (data, done) => {
+	console.log(data)
+	done(null, ['asd', 'ddd'])
+})
+
 const { green, red, cyan, bold, magenta } = require('colors')
 const { resolve } = require('path')
 const { existsSync: exists } = require('fs')
