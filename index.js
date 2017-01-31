@@ -10,7 +10,7 @@ const register = (name, ...ts) => {
 	__synthesizer__tasks__.set(name, ts)
 }
 
-const perform = __synthesizer__perform__
+const perform = (...args) => __synthesizer__perform__(...args)
 
 const run = (file, args = [], options = {}) => {
 	const execution = spawnSync(file, args, merge({ stdio: 'inherit' }, options))
