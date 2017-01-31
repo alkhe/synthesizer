@@ -4,7 +4,7 @@ const tab = require('tabtab')({
 	name: 'syn'
 })
 
-tab.on('program', (data, done) => {
+tab.on('syn', (data, done) => {
 	console.log(data)
 	done(null, ['asd', 'ddd'])
 })
