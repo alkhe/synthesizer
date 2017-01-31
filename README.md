@@ -2,6 +2,8 @@
 
 A lightweight, practical task runner. Great for build systems, testing, and deployments!
 
+When a Makefile is not enough, but Gulp is too much.
+
 ## Install
 
 Install `synthesizer` globally:
