@@ -4,7 +4,9 @@ const rl = require('readline-sync')
 
 rl.setDefaultOptions({ prompt: '' })
 
-const log = console.log.bind(console)
+const log = x => {
+	process.stdout.write(`${ x }\n`)
+}
 
 const tasks = new Map
 
@@ -16,8 +18,13 @@ const register = (name, ...ts) => {
 	tasks.set(name, ts)
 }
 
-const run = (file, args = [], options = {}) =>
-	spawnSync(file, args, merge({ stdio: [null, 'inherit', 'inherit'] }, options))
+const run = (file, args = [], options = {}) => {
+	const execution = spawnSync(file, args, merge({ stdio: [null, 'inherit', 'inherit'] }, options))
+	if (execution.status !== 0) {
+		throw new Error(`${ file }[${ args.join(', ') }] exited with status ${ execution.status }`)
+	}
+	return execution
+}
 
 const ask = prompt => {
 	log(cyan(prompt))

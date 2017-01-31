@@ -1,15 +1,18 @@
 #!/usr/bin/env node
 
-const { green, red, cyan } = require('colors')
+const { green, red, cyan, bold, magenta } = require('colors')
 const { resolve } = require('path')
 const { existsSync: exists } = require('fs')
 
-const log = console.log.bind(console)
+const log = x => {
+	process.stdout.write(`${ x }\n`)
+}
+
 const msg = (tag, content) => {
-	log(`<${ green(tag) }> ${ content }`)
+	log(`${ bold(`{${ green(tag) }}`) } ${ content }`)
 }
 const err = (tag, content) => {
-	log(`<${ red(tag) }> ${ content }`)
+	log(`${ bold(`{${ red(tag) }}`) } ${ content }`)
 }
 
 const cwd = process.cwd()
@@ -28,20 +31,36 @@ msg('#syn', `using in ${ cyan(synfile) }`)
 const requests = process.argv.slice(2)
 const tasks = __synthesizer__tasks__
 
+const task_stack = []
+
 const run_task = t => {
 	msg(`:${ t }`, 'init')
+
+	task_stack.push(t)
 	
-	tasks.get(t).forEach(u => {
+	const us = tasks.get(t)
+
+	for (let i = 0; i < us.length; i++) {
+		const u = us[i]
+
 		if (u.constructor === String) {
 			run_task(u)
 		} else {
 			u()
 		}
-	})
+	}
+
+	task_stack.pop()
 
 	msg(`:${ t }`, 'done')
 }
 
-requests.forEach(run_task)
+try {
+	requests.forEach(run_task)
+	msg('#syn', `ok`)
+} catch (e) {
+	task_stack.forEach(t => err(`:${ t }`, 'fail'))
+	log(magenta(e.stack))
+	err('#syn', `bad`)
+}
 
-msg('#syn', `ok`)
