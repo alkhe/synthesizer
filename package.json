@@ -1,11 +1,11 @@
 {
   "name": "synthesizer",
-  "version": "0.5.0-beta.4",
+  "version": "0.5.0-beta.5",
   "description": "Minimalist task runner.",
   "preferGlobal": true,
   "bin": {
     "syn": "./synthesizer.js",
-	"syn-completer": "./completer.js"
+    "syn-completer": "./completer.js"
   },
   "scripts": {
     "postinstall": "tabtab install --name syn --completer syn-completer --auto"
