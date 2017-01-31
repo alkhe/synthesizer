@@ -9,6 +9,8 @@ tab.on('syn', (data, done) => {
 	done(null, ['asd', 'ddd'])
 })
 
+tab.start()
+
 const { green, red, cyan, bold, magenta } = require('colors')
 const { resolve } = require('path')
 const { existsSync: exists } = require('fs')
