@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { green, red, cyan } = require('colors')
 const { resolve } = require('path')
 const { existsSync: exists } = require('fs')
