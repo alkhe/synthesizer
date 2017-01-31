@@ -19,7 +19,7 @@ const register = (name, ...ts) => {
 }
 
 const run = (file, args = [], options = {}) => {
-	const execution = spawnSync(file, args, merge({ stdio: [null, 'inherit', 'inherit'] }, options))
+	const execution = spawnSync(file, args, merge({ stdio: 'inherit' }, options))
 	if (execution.status !== 0) {
 		throw new Error(`${ file }[${ args.join(', ') }] exited with status ${ execution.status }`)
 	}
