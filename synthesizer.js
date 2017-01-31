@@ -38,6 +38,7 @@ const run_task = t => {
 
 	task_stack.push(t)
 	
+	if (!tasks.has(t)) throw new Error(`task ${ t } not found`)
 	const us = tasks.get(t)
 
 	for (let i = 0; i < us.length; i++) {

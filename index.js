@@ -30,9 +30,9 @@ const run = (file, args = [], options = {}) => {
 	return execution
 }
 
-const ask = prompt => {
+const ask = (prompt, options = {}) => {
 	if (prompt.length > 0) prelog(cyan(prompt))
-	return rl.prompt()
+	return rl.prompt(options)
 }
 
 module.exports = {
