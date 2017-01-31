@@ -1,6 +1,6 @@
 {
   "name": "synthesizer",
-  "version": "0.5.0-beta",
+  "version": "0.5.0-beta.2",
   "description": "Minimalist task runner.",
   "preferGlobal": true,
   "bin": {
