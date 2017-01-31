@@ -1,0 +1,17 @@
+{
+  "name": "synthesizer",
+  "version": "0.1.0",
+  "description": "Minimalist task runner.",
+  "preferGlobal": true,
+  "bin": {
+    "syn": "./synthesizer.js"
+  },
+  "main": "index.js",
+  "repository": "https://github.com/edge/synthesizer",
+  "author": "synchronous",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "readline-sync": "^1.4.5"
+  }
+}
