@@ -1,26 +1,16 @@
-const { cyan } = require('colors')
+const { prompt } = require('./util')
 const { execSync, spawnSync } = require('child_process')
 const rl = require('readline-sync')
 
 rl.setDefaultOptions({ prompt: '' })
 
-const log = x => {
-	process.stderr.write(`${ x }\n`)
-}
-
-const prelog = x => {
-	process.stderr.write(x)
-}
-
-const tasks = new Map
-
-global.__synthesizer__tasks__ = tasks
-
 const merge = (...args) => Object.assign({}, ...args)
 
 const register = (name, ...ts) => {
-	tasks.set(name, ts)
+	__synthesizer__tasks__.set(name, ts)
 }
+
+const perform = __synthesizer__perform__
 
 const run = (file, args = [], options = {}) => {
 	const execution = spawnSync(file, args, merge({ stdio: 'inherit' }, options))
@@ -32,13 +22,14 @@ const run = (file, args = [], options = {}) => {
 
 const shell = (cmd, options = {}) => execSync(cmd, merge({ stdio: 'inherit', options }))
 
-const ask = (prompt, options = {}) => {
-	if (prompt.length > 0) prelog(cyan(prompt))
+const ask = (question, options = {}) => {
+	if (question.length > 0) prompt(question)
 	return rl.prompt(options)
 }
 
 module.exports = {
 	register,
+	perform,
 	run,
 	shell,
 	ask

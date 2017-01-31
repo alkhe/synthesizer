@@ -1,50 +1,49 @@
 #!/usr/bin/env node
 
-const { green, red, cyan, bold, magenta } = require('colors')
-const { resolve } = require('path')
+const { cyan, magenta } = require('colors')
+const { log, msg, err } = require('./util')
+const { join } = require('path')
 const { existsSync: exists } = require('fs')
 
-const log = x => {
-	process.stderr.write(`${ x }\n`)
-}
-
-const msg = (tag, content) => {
-	log(`${ bold(`{${ green(tag) }}`) } ${ content }`)
-}
-const err = (tag, content) => {
-	log(`${ bold(`{${ red(tag) }}`) } ${ content }`)
-}
-
 const cwd = process.cwd()
-msg('syn', `starting in ${ cyan(cwd) }`)
+const synfile = join(cwd, 'syn.js')
 
-const synfile = resolve(cwd, 'syn.js')
+msg('syn', `starting in ${ cyan(cwd) }`)
 
 if (!exists(synfile)) {
 	err('syn', `syn.js not found`)
 	process.exit()
 }
 
-// const __synthesizer__run__ = 
+const tasks = new Map
+let run_task = () => {
+	err('syn', '`perform` is meant for composing tasks. specify tasks you want to run on the command line.')
+	process.exit()
+}
+
+global.__synthesizer__tasks__ = tasks
+global.__synthesizer__perform__ = (...args) => {
+	args.forEach(run_task)
+}
 
 require(synfile)
 msg('syn', `using ${ cyan(synfile) }`)
 
 const requests = process.argv.slice(2)
-const tasks = __synthesizer__tasks__
-
 const task_stack = []
 
-const run_task = t => {
+tasks.set('#', requests)
+
+run_task = t => {
 	msg(`:${ t }`, 'init')
 
 	task_stack.push(t)
 	
 	if (!tasks.has(t)) throw new Error(`task ${ t } not found`)
-	const us = tasks.get(t)
+	const components = tasks.get(t)
 
-	for (let i = 0; i < us.length; i++) {
-		const u = us[i]
+	for (let i = 0; i < components.length; i++) {
+		const u = components[i]
 
 		if (u.constructor === String) {
 			run_task(u)
@@ -57,8 +56,6 @@ const run_task = t => {
 
 	msg(`:${ t }`, 'done')
 }
-
-tasks.set('#', requests)
 
 try {
 	run_task('#')
