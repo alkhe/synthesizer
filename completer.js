@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const { default_perform } = require('./util')
 const { resolve } = require('path')
 const { existsSync: exists } = require('fs')
 
@@ -7,6 +8,9 @@ const cwd = process.cwd()
 const synfile = resolve(cwd, 'syn.js')
 
 if (exists(synfile)) {
+	global.__synthesizer__tasks__ = new Map
+	global.__synthesizer__perform__ = () => {}
+
 	require(synfile)
 
 	const tab = require('tabtab')({

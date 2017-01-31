@@ -10,8 +10,6 @@ const register = (name, ...ts) => {
 	__synthesizer__tasks__.set(name, ts)
 }
 
-const perform = (...args) => __synthesizer__perform__(...args)
-
 const run = (file, args = [], options = {}) => {
 	const execution = spawnSync(file, args, merge({ stdio: 'inherit' }, options))
 	if (execution.status !== 0) {
@@ -29,7 +27,7 @@ const ask = (question, options = {}) => {
 
 module.exports = {
 	register,
-	perform,
+	perform: __synthesizer__perform__,
 	run,
 	shell,
 	ask

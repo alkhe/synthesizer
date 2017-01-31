@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-const { log, msg, err } = require('./util')
+const { log, msg, err, default_perform } = require('./util')
 
 const requests = process.argv.slice(2)
 
 if (requests.includes('-v')) {
-	msg('syn', `synthesizer@${ require('./package.json').version }`)
+	log(`synthesizer@${ require('./package.json').version }`)
 	process.exit()
 }
 
@@ -24,11 +24,7 @@ if (!exists(synfile)) {
 }
 
 const tasks = new Map
-let run_task = () => {
-	err('syn', '`perform` is meant for composing tasks. specify tasks you want to run on the command line.')
-	process.exit()
-}
-
+let run_task = default_perform
 global.__synthesizer__tasks__ = tasks
 global.__synthesizer__perform__ = (...args) => {
 	args.forEach(run_task)
