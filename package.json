@@ -6,6 +6,9 @@
   "bin": {
     "syn": "./synthesizer.js"
   },
+  "scripts": {
+    "install": "tabtab install"
+  },
   "main": "index.js",
   "repository": "https://github.com/edge/synthesizer",
   "author": "synchronous",
