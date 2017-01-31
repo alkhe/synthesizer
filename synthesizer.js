@@ -1,7 +1,15 @@
 #!/usr/bin/env node
 
-const { cyan, magenta } = require('colors')
 const { log, msg, err } = require('./util')
+
+const requests = process.argv.slice(2)
+
+if (requests.includes('-v')) {
+	msg('syn', `synthesizer@${ require('./package.json').version }`)
+	process.exit()
+}
+
+const { cyan, magenta } = require('colors')
 const { join } = require('path')
 const { existsSync: exists } = require('fs')
 
@@ -29,7 +37,6 @@ global.__synthesizer__perform__ = (...args) => {
 require(synfile)
 msg('syn', `using ${ cyan(synfile) }`)
 
-const requests = process.argv.slice(2)
 const task_stack = []
 
 tasks.set('#', requests)
