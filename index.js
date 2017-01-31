@@ -1,5 +1,5 @@
 const { cyan } = require('colors')
-const { execFileSync, spawnSync } = require('child_process')
+const { execSync, spawnSync } = require('child_process')
 const rl = require('readline-sync')
 
 rl.setDefaultOptions({ prompt: '' })
@@ -30,6 +30,8 @@ const run = (file, args = [], options = {}) => {
 	return execution
 }
 
+const shell = (cmd, options = {}) => execSync(cmd, merge({ stdio: 'inherit', options }))
+
 const ask = (prompt, options = {}) => {
 	if (prompt.length > 0) prelog(cyan(prompt))
 	return rl.prompt(options)
@@ -38,6 +40,7 @@ const ask = (prompt, options = {}) => {
 module.exports = {
 	register,
 	run,
+	shell,
 	ask
 }
 

@@ -60,7 +60,9 @@ try {
 	requests.forEach(run_task)
 	msg('#syn', `ok`)
 } catch (e) {
-	task_stack.forEach(t => err(`:${ t }`, 'fail'))
+	for (let i = task_stack.length - 1; i >= 0; i--) {
+		err(`:${ task_stack[i] }`, `fail`)
+	}
 	log(magenta(e.stack))
 	err('#syn', `bad`)
 }
