@@ -8,7 +8,8 @@
     "syn-completer": "./completer.js"
   },
   "scripts": {
-    "postinstall": "tabtab install --name syn --completer syn-completer --auto"
+    "postinstall": "tabtab install --name syn --completer syn-completer --auto",
+    "postuninstall": "tabtab install --name syn --auto"
   },
   "main": "index.js",
   "repository": "https://github.com/edge/synthesizer",

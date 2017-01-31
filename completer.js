@@ -1,13 +1,23 @@
 #!/usr/bin/env node
 
-const tab = require('tabtab')({
-	name: 'syn'
-})
+const { resolve } = require('path')
+const { existsSync: exists } = require('fs')
 
-tab.on('syn', (data, done) => {
-	console.log(data)
-	done(null, ['asd', 'ddd'])
-})
+const cwd = process.cwd()
+const synfile = resolve(cwd, 'syn.js')
 
-tab.start()
+if (exists(synfile)) {
+	require(synfile)
+
+	const tab = require('tabtab')({
+		name: 'syn',
+		cache: 'false'
+	})
+
+	tab.on('syn', (data, done) => {
+		done(null, Array.from(__synthesizer__tasks__.keys()))
+	})
+
+	tab.start()
+}
 
