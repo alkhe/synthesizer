@@ -1,7 +1,7 @@
 {
   "name": "synthesizer",
   "version": "0.7.0",
-  "description": "Minimalist task runner.",
+  "description": "Lightweight, practical task runner.",
   "preferGlobal": true,
   "bin": {
     "syn": "./synthesizer.js",
