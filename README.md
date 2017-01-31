@@ -1,8 +1,6 @@
 # synthesizer
 
-A lightweight, practical task runner. Great for build systems, testing, and deployments!
-
-When a Makefile is not enough, but Gulp is too much.
+A lightweight, practical task runner. Great for build systems, testing, and deployments! `synthesizer` has the speed of a Makefile and the power of Gulp.
 
 ## Install
 
