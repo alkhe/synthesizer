@@ -3,7 +3,7 @@ import { log, msg, err, default_perform } from './util'
 const requests = process.argv.slice(2)
 
 if (requests.includes('-v')) {
-	log(`synthesizer@${ require('./package.json').version }`)
+	log(`synthesizer@${ require('../package.json').version }`)
 	process.exit()
 }
 
