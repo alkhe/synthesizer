@@ -25,6 +25,6 @@
     "babel-preset-env": "^1.1.8",
     "rollup": "^0.41.4",
     "rollup-plugin-babel": "^2.7.1",
-    "synthesizer": "^0.13.0"
+    "synthesizer": "^0.21.0"
   }
 }
