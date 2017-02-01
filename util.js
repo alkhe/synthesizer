@@ -12,4 +12,4 @@ const default_perform = () => {
 	process.exit()
 }
 
-module.exports = { log, prelog, msg, err, prompt, default_perform }
+export { log, prelog, msg, err, prompt, default_perform }

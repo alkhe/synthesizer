@@ -4,8 +4,8 @@
   "description": "Lightweight, practical task runner.",
   "preferGlobal": true,
   "bin": {
-    "syn": "./bin.js",
-    "syn-completer": "./completer.js"
+    "syn": "./bin/cli.js",
+    "syn-completer": "./bin/completer.js"
   },
   "scripts": {
     "postinstall": "tabtab install --name syn --completer syn-completer --auto",
@@ -19,5 +19,12 @@
     "colors": "^1.1.2",
     "readline-sync": "^1.4.5",
     "tabtab": "^2.2.2"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "rollup": "^0.41.4",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-uglify": "^1.0.1",
+    "synthesizer": "^0.13.0"
   }
 }

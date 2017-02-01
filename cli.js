@@ -1,6 +1,4 @@
-#!/usr/bin/env node
-
-const { log, msg, err, default_perform } = require('./util')
+import { log, msg, err, default_perform } from './util'
 
 const requests = process.argv.slice(2)
 

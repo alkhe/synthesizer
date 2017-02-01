@@ -1,6 +1,4 @@
-#!/usr/bin/env node
-
-const { default_perform } = require('./util')
+import { default_perform } from './util'
 const { resolve } = require('path')
 const { existsSync: exists } = require('fs')
 
