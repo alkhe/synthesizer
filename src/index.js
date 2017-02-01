@@ -4,21 +4,19 @@ const rl = require('readline-sync')
 
 rl.setDefaultOptions({ prompt: '' })
 
-const merge = (...args) => Object.assign({}, ...args)
-
 const register = (name, ...ts) => {
 	__synthesizer__tasks__.set(name, ts)
 }
 
 const run = (file, args = [], options = {}) => {
-	const execution = spawnSync(file, args, merge({ stdio: 'inherit' }, options))
+	const execution = spawnSync(file, args, Object.assign({ stdio: 'inherit' }, options))
 	if (execution.status !== 0) {
 		throw new Error(`${ file }[${ args.join(', ') }] exited with status ${ execution.status }`)
 	}
 	return execution
 }
 
-const shell = (cmd, options = {}) => execSync(cmd, merge({ stdio: 'inherit', options }))
+const shell = (cmd, options = {}) => execSync(cmd, Object.assign({ stdio: 'inherit' }, options))
 
 const ask = (question, options = {}) => {
 	if (question.length > 0) prompt(question)
