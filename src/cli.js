@@ -35,7 +35,7 @@ const task_stack = []
 
 tasks.set('#', requests)
 
-run_task = t => {
+run_task = t => new Promise((res, rej) => {
 	msg(`:${ t }`, 'init')
 
 	task_stack.push(t)
@@ -43,27 +43,42 @@ run_task = t => {
 	if (!tasks.has(t)) throw new Error(`task ${ t } not found`)
 	const components = tasks.get(t)
 
-	for (let i = 0; i < components.length; i++) {
-		const u = components[i]
+	let i = 0
 
-		if (u.constructor === String) {
-			run_task(u)
+	function loop() {
+		if (i < components.length) {
+			const u = components[i]
+
+			i++
+
+			const p =
+				u.constructor === String
+					? run_task(u)
+					: new Promise((res, rej) => {
+						if (u.length === 0) {
+							// value or promise
+							res(u())
+						} else {
+							// callback
+							u(res)
+						}
+					})
+
+			p.then(loop).catch(rej)
 		} else {
-			u()
+			task_stack.pop()
+			msg(`:${ t }`, 'done')
+			res()
 		}
 	}
 
-	task_stack.pop()
+	loop()
+})
 
-	msg(`:${ t }`, 'done')
-}
-
-try {
-	run_task('#')
-} catch (e) {
-	log(magenta(e.stack))
-	for (let i = task_stack.length - 1; i >= 0; i--) {
-		err(`:${ task_stack[i] }`, `fail`)
-	}
-}
-
+run_task('#')
+	.catch(e => {
+		log(magenta(e.stack))
+		for (let i = task_stack.length - 1; i >= 0; i--) {
+			err(`:${ task_stack[i] }`, `fail`)
+		}
+	})
