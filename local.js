@@ -1,4 +1,4 @@
-const { prompt } = require('./util')
+import { prompt } from './util'
 const { execSync, spawnSync } = require('child_process')
 const rl = require('readline-sync')
 

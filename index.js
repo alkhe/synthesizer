@@ -1,1 +1,11 @@
-"use strict";var _require=require("./util"),prompt=_require.prompt,_require2=require("child_process"),execSync=_require2.execSync,spawnSync=_require2.spawnSync,rl=require("readline-sync");rl.setDefaultOptions({prompt:""});var merge=function(){for(var r=arguments.length,e=Array(r),t=0;t<r;t++)e[t]=arguments[t];return Object.assign.apply(Object,[{}].concat(e))},register=function(r){for(var e=arguments.length,t=Array(e>1?e-1:0),n=1;n<e;n++)t[n-1]=arguments[n];__synthesizer__tasks__.set(r,t)},run=function(r){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:[],t=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{},n=spawnSync(r,e,merge({stdio:"inherit"},t));if(0!==n.status)throw new Error(r+"["+e.join(", ")+"] exited with status "+n.status);return n},shell=function(r){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};return execSync(r,merge({stdio:"inherit",options:e}))},ask=function(r){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};return r.length>0&&prompt(r),rl.prompt(e)};module.exports={register:register,perform:__synthesizer__perform__,run:run,shell:shell,ask:ask};
+'use strict';
+
+const {green,red,cyan,bold}=require('colors');
+const log=a=>process.stderr.write(`${a}\n`);
+const prelog=a=>process.stderr.write(a);
+const msg=(a,b)=>log(`${bold(`{${green(a)}}`)} ${b}`);
+const err=(a,b)=>log(`${bold(`{${red(a)}}`)} ${b}`);
+const prompt=a=>prelog(cyan(a));
+const default_perform=()=>{err('syn','`perform` is meant for composing tasks. specify tasks you want to run on the command line.'),process.exit();};
+
+const {execSync,spawnSync}=require('child_process'); const rl=require('readline-sync');rl.setDefaultOptions({prompt:''});const merge=(...a)=>Object.assign({},...a); const register=(a,...b)=>{__synthesizer__tasks__.set(a,b);}; const run=(a,b=[],c={})=>{const d=spawnSync(a,b,merge({stdio:'inherit'},c));if(0!==d.status)throw new Error(`${a}[${b.join(', ')}] exited with status ${d.status}`);return d}; const shell=(a,b={})=>execSync(a,merge({stdio:'inherit',options:b})); const ask=(a,b={})=>{return 0<a.length&&prompt(a),rl.prompt(b)};module.exports={register,perform:__synthesizer__perform__,run,shell,ask};
