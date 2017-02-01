@@ -1,6 +1,6 @@
 {
   "name": "synthesizer",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "Lightweight, practical task runner.",
   "preferGlobal": true,
   "bin": {
